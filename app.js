@@ -1,20 +1,18 @@
 const express = require('express');
-const db = require('./db');
+const user_routes = require('./routes/user');
+const history_routes = require('./routes/history');
+const pay_routes = require('./routes/pay');
+const transfer_routes = require('./routes/transfer');
+const topup_routes = require('./routes/topup');
 const app = express();
+const db = require('./db');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/api/user', user_routes);
+app.use('/api/history', history_routes);
+app.use('/api/pay', pay_routes);
+app.use('/api/transfer', transfer_routes);
+app.use('/api/topup', topup_routes);
 
-
-app.get('/', (req, res) => {
-    res.status(200).send('pog');
-})
-
-app.get('/db', async (req, res) => {
-    const queryresult = await db.promise().query('select * from user');
-    res.status(200).send(queryresult[0]);
-})
-
-app.listen(3000, () => {
-    console.log('dah konek ke 3000')
-})
+app.listen(3000, () => console.log('listening on port 3k'));
