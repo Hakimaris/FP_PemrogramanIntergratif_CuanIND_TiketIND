@@ -5,12 +5,8 @@ const router = Router();
 
 router.post('/', async(req, res) => {
     // res.send("sudah topup")
-<<<<<<< HEAD
-    const {token} = req.body;
-=======
     const { duid, token, id } = req.body;
     let userid;
->>>>>>> ada570606291ec7d72efaeb7f3630c4bbc219481
     jwt.verify(token, 'buatdebug', (err, response) => {
         // console.log(response);
         if (err) {
