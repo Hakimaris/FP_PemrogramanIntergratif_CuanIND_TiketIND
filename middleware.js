@@ -1,19 +1,30 @@
-const { Router } = require('express');
+// const { Router } = require('express');
 const jwt = require('jsonwebtoken');
-const db = require('../db');
-const router = Router();
+// const db = require('../db');
+// const router = Router();
 
 function authenticateToken(req, res, next) {
-    const AuthHeader = req.headers["authorization"]
+    const AuthHeader = req.headers["authorization"];
+    const token = AuthHeader && AuthHeader.split(' ')[1];
+
+    if (token == null) {
+        return res.status(401).json("Bearer Token Not Found");
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
+        if (err) return res.status(401).json("Invalid Token");
+        req.response = response;
+        next();
+    })
 }
 
-function ValidateToken(req, res, next) {
-    // const ValidateToken
-    console.log("saya sedih :<")
+function authenticateHeader(req, res, next) {
+    // console.log("saya sedih :<");
+    const header = req.get("content-type");
+    if (header !== "application/json") {
+        return res.status(401).json("Invalid header type. must include application/json");
+    }
+    next();
 }
 
-router.post('/tp', (req, res) => {
-    res.send("sudah ingin transfer")
-});
-
-module.exports = router;
+module.exports ={authenticateToken,authenticateHeader};
