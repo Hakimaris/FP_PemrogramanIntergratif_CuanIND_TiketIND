@@ -10,7 +10,7 @@ router.post('/', async(req, res) => {
     jwt.verify(token, 'buatdebug', (err, response) => {
         console.log(response);
     })
-    const query = await db.promise().query(`UPDATE user_money FROM user SET user_money=user_money+${duid} WHERE user_id=1`);
+    const query = await db.promise().query(`UPDATE user SET user_money = user_money+ ${duid} WHERE user.user_id = 1;`);
 });
 
 module.exports = router;
