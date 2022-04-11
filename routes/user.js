@@ -8,8 +8,24 @@ router.get('/history', async (req, res) => {
     res.status(200).send(queryresult[0]);
 })
 
-router.post('/login', (req, res) => {
-    const queryresult = await db.promise().query('select * from user where user_umber=${apaya}');
+router.post('/login',async (req, res) => {
+    const { username, password, notelp } = req.body;
+    // var token = 'Bearer ' + jwt.sign({
+	// 				id: user.id
+	// 			}, config.secret, {
+	// 				expiresIn: 86400 //24h expired
+	// 			});
+    const queryresult = await db.promise().query(`select * from user where user_number='${notelp}' limit 1`);
+    const apaya = queryresult[0][0];
+    if (apaya == undefined) {
+        res.status(400).send("gagal login")
+    }
+    const isitoken = { 
+        nama: apaya.user_name, 
+        id: apaya.user_id,
+    } 
+    const token = jwt.sign(isitoken,'buatdebug',{expiresIn: '3h'})
+    res.status(200).json(token);
 });
 
 router.post('/register', async (req, res) => {
