@@ -5,9 +5,10 @@ const router = Router();
 
 router.post('/', async(req, res) => {
     // res.send("sudah topup")
-    const { duid, token, id } = req.body;
+    const { duid, token } = req.body;
     let userid;
     jwt.verify(token, 'buatdebug', (err, response) => {
+        console.log(response);
         if (err) {
             return res.status(408).send("salah token");
         }
