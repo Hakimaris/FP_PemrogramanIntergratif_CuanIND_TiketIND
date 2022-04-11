@@ -1,4 +1,5 @@
 const express = require('express');
+//const { requireAuth, checkUser}=require ('./middleware');
 const user_routes = require('./routes/user');
 const history_routes = require('./routes/history');
 const pay_routes = require('./routes/pay');
@@ -16,3 +17,4 @@ app.use('/api/transfer', transfer_routes);
 app.use('/api/topup', topup_routes);
 
 app.listen(3000, () => console.log('listening on port 3k'));
+// app.get('*', checkUser);

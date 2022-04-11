@@ -5,26 +5,38 @@ const jwt = require('jsonwebtoken');
 
 function authenticateToken(req, res, next) {
     const AuthHeader = req.headers["authorization"];
-    const token = AuthHeader && AuthHeader.split(' ')[1];
-
-    if (token == null) {
-        return res.status(401).json("Bearer Token Not Found");
-    }
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
-        if (err) return res.status(401).json("Invalid Token");
-        req.response = response;
-        next();
-    })
 }
 
-function authenticateHeader(req, res, next) {
-    // console.log("saya sedih :<");
-    const header = req.get("content-type");
-    if (header !== "application/json") {
-        return res.status(401).json("Invalid header type. must include application/json");
-    }
-    next();
+function ValidateToken(req, res, next) {
+    // const ValidateToken
+    console.log("saya sedih :<");
 }
 
-module.exports ={authenticateToken,authenticateHeader};
+// const checkUser(req, res, next) => {
+//     const token = req.cookies.jwt;
+//     if (token) {
+//         jwt.verify(token, 'namaTokennyaApa?', async(err, decodedToken) => {
+//             if (err) {
+//                 console.log(err.message);
+//                 res.local.user = null;
+//                 next();
+//             } else {
+//                 console.log(decodedToken);
+//                 let user = await User.findById(decodedToken.id);
+//                 res.local.user = user;
+//                 next();
+//             }
+//         })
+//     }
+//     else {
+//         res.local.user = null;
+//         next();
+//     }
+// }
+
+router.post('/tp', (req, res) => {
+    res.send("sudah ingin transfer")
+});
+
+module.exports = router;
+// module.exports = {requireAuth, checkUser}
