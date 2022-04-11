@@ -1,5 +1,5 @@
 const express = require('express');
-//const {requireAuth}=require ('./middleware');
+//const { requireAuth, checkUser}=require ('./middleware');
 const user_routes = require('./routes/user');
 const history_routes = require('./routes/history');
 const pay_routes = require('./routes/pay');
