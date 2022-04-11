@@ -10,33 +10,34 @@ function authenticateToken(req, res, next) {
 function ValidateToken(req, res, next) {
     // const ValidateToken
     console.log("saya sedih :<");
+};
+
+function checkUser(req, res, next) {
+
+    const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async(err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.local.user = null;
+                next();
+            } else {
+                console.log(decodedToken);
+                let user = await User.findById(decodedToken.id);
+                res.local.user = user;
+                next();
+            }
+        })
+    }
+    else {
+        res.local.user = null;
+        next();
+    }
 }
 
-// const checkUser(req, res, next) => {
-//     const token = req.cookies.jwt;
-//     if (token) {
-//         jwt.verify(token, 'namaTokennyaApa?', async(err, decodedToken) => {
-//             if (err) {
-//                 console.log(err.message);
-//                 res.local.user = null;
-//                 next();
-//             } else {
-//                 console.log(decodedToken);
-//                 let user = await User.findById(decodedToken.id);
-//                 res.local.user = user;
-//                 next();
-//             }
-//         })
-//     }
-//     else {
-//         res.local.user = null;
-//         next();
-//     }
-// }
+// router.post('/tp', (req, res) => {
+//     res.send("sudah ingin transfer")
+// });
 
-router.post('/tp', (req, res) => {
-    res.send("sudah ingin transfer")
-});
-
-module.exports = router;
-// module.exports = {requireAuth, checkUser}
+// module.exports = router;
+module.exports = {requireAuth, checkUser}
