@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/', async(req, res) => {
     // res.send("sudah topup")
-    const { duid, token } = req.body;
+    const { duid, token, id} = req.body;
     jwt.verify(token, 'buatdebug', (err, response) => {
         console.log(response);
     })
