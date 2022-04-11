@@ -9,10 +9,10 @@ router.get('/history', async (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    res.send("sudah dpt login")
+    const queryresult = await db.promise().query('select * from user where user_umber=${apaya}');
 });
 
-router.get('/db', async (req, res) => {
+router.post('/register', async (req, res) => {
     const queryresult = await db.promise().query('select * from ');
     res.status(200).send(queryresult[0]);
 })
