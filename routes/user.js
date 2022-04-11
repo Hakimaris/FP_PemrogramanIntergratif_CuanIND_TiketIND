@@ -15,8 +15,9 @@ router.get('/history', async (req, res) => {
         }
         userid = response;
     })
-    const query = await db.promise().query(`select user SET user_money = user_money+ ${duid} WHERE user_id = ${userid.id};`);
-    res.status(200).send("udah terupdate")
+    const query = await db.promise().query(`SELECT history.history_date, item.item_name, item.item_value from history, item WHERE history_user = ${userid.id} AND history_item = item_id;`);
+
+    res.status(200).send(query[0][0])
 })
 
 router.post('/login',async (req, res) => {
@@ -37,8 +38,15 @@ router.post('/login',async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const { username, password, notelp, email } = req.body;
-    const queryresult = await db.promise().query(`INSERT INTO user (user_id, user_email, user_name, user_password, user_number, user_money) VALUES (NULL, "${email}", "${username}", "${password}", "${notelp}", '0');`);
-    res.status(200).send("Karakter dibuat");
+    const queryresult2 = await db.promise().query(`select user_number,user_email from user where user_number = "${notelp}" or user_email = "${email}"`);
+    let hasilquery = queryresult2[0][0];
+    if (hasilquery.user_number == notelp || hasilquery.user_email == email ) { 
+        res.status(400).send("nomor telpon atau email sudah dipakai")
+    }
+    else {
+        const queryresult1 = await db.promise().query(`INSERT INTO user (user_id, user_email, user_name, user_password, user_number, user_money) VALUES (NULL, "${email}", "${username}", "${password}", "${notelp}", '0');`);
+        res.status(200).send("Karakter dibuat");
+    }
 })
 
 module.exports = router;
