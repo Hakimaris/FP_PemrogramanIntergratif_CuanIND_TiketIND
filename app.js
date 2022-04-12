@@ -9,10 +9,10 @@ const db = require('./db');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/api/user', user_routes);
-// app.use('/api/history', history_routes);
-app.use('/api/pay', pay_routes);
-app.use('/api/transfer', transfer_routes);
-app.use('/api/topup', topup_routes);
+app.use('/cuanind/user', user_routes);
+// app.use('/cuanind/history', history_routes);
+app.use('/cuanind/pay', pay_routes);
+app.use('/cuanind/transfer', transfer_routes);
+app.use('/cuanind/topup', topup_routes);
 
 app.listen(3000, () => console.log('listening on port 3k'));

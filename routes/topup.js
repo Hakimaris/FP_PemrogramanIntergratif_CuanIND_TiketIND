@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../db');
 const router = Router();
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     // res.send("sudah topup")
     const { amount, token } = req.body;
     let userid;

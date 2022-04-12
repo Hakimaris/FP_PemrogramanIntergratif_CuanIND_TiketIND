@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 11, 2022 at 08:30 AM
+-- Generation Time: Apr 11, 2022 at 04:55 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -31,17 +31,10 @@ CREATE TABLE `history` (
   `history_id` int(11) NOT NULL,
   `history_user` int(11) NOT NULL,
   `history_item` int(11) NOT NULL,
-  `history_status` int(11) NOT NULL,
+  `history_status` int(11) NOT NULL DEFAULT '1',
   `history_quantity` int(11) NOT NULL,
   `history_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `history`
---
-
-INSERT INTO `history` (`history_id`, `history_user`, `history_item`, `history_status`, `history_quantity`, `history_date`) VALUES
-(1, 1, 2, 1, 1, '2022-04-11 15:28:44');
 
 -- --------------------------------------------------------
 
@@ -56,14 +49,6 @@ CREATE TABLE `item` (
   `item_stock` int(11) NOT NULL,
   `item_actor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `item`
---
-
-INSERT INTO `item` (`item_id`, `item_name`, `item_value`, `item_stock`, `item_actor`) VALUES
-(1, 'Transfer-Admin', 100000, 1, 1),
-(2, 'Top Up', 100000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -104,7 +89,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_name`, `user_password`, `user_number`, `user_money`) VALUES
-(1, 'admin@email.com', 'admin', 'admin', '08122345678', 100000);
+(1, 'admin@email.com', 'admin', 'admin', '08122345678', 289000),
+(2, 'dummy@mail.com', 'dummy', 'dummy', '123456', 40000);
 
 --
 -- Indexes for dumped tables
@@ -142,13 +128,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -160,7 +146,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
