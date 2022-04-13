@@ -4,12 +4,12 @@ const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 const router = Router();
-const { authenticateToken, authenticateHeader } = require('../middleware');
+const { authenticateToken, authenticateHeader } = require('../midelwer');
 
 router.post('/', async(req, res) => {
     const { amount, token, target } = req.body;
     let userid;
-    jwt.verify(token, 'buatdebug', (err, response) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
         if (err) {
             return res.status(408).send("Salah token");
         }

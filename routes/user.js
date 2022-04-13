@@ -8,7 +8,7 @@ const router = Router();
 router.get('/history', async (req, res) => {
     const { username, token, id } = req.body;
     let userid;
-    jwt.verify(token, 'buatdebug', (err, response) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
         // console.log(response);
         if (err) {
             return res.status(408).send("salah token");
@@ -24,7 +24,7 @@ router.post('/login',async (req, res) => {
     const { username, password, notelp } = req.body;
     const queryresult = await db.promise().query(`select * from user where user_number='${notelp}' && user_password='${password}' && user_name='${username}' limit 1`);
     const apaya = queryresult[0][0];
-    console.log(apaya);
+    // console.log(apaya);
     if (apaya == undefined) {
         res.status(400).send("gagal login")
     }
