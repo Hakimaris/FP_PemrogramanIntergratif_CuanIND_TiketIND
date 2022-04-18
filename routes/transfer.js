@@ -15,7 +15,8 @@ router.post('/', async(req, res) => {
         }
         userid = response;
     })
-    const query0 = await db.promise().query(`UPDATE user SET user_money = user_money- ${amount} WHERE user_id = ${userid.id};`);
+    //BELUM SELESAI
+    const query0 = await db.promise().query(`UPDATE user SET user_money = user_money- ${amount} WHERE user_number = ${userid.id};`);
     const query1 = await db.promise().query(`UPDATE user SET user_money = user_money+ ${amount} WHERE user_number = ${target};`);
     const query2 = await db.promise().query(`SELECT user_id FROM user WHERE user_number = ${target};`);
     let hasilQuery1 = query2[0][0];
