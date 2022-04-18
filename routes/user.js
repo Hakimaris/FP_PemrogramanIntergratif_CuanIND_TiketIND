@@ -3,35 +3,29 @@ require('dotenv').config();
 const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
+const { authenticateToken } = require('../midelwer');
 const router = Router();
 
-router.get('/history', async (req, res) => {
-    const { username, token, id } = req.body;
-    let userid;
-    jwt.verify(token, process.env.sekrekkiy, (err, response) => {
-        // console.log(response);
-        if (err) {
-            return res.status(408).send("salah token");
-        }
-        userid = response;
-    })
-    const query = await db.promise().query(`SELECT history.history_date, item.item_name, item.item_value from history, item WHERE history_user = ${userid.id} AND history_item = item_id;`);
+router.get('/history', authenticateToken,async (req, res) => {
+    // const { username, token, id } = req.body;
+    let resuld = req.response.notelp;
+    const query = await db.promise().query(`SELECT * from history WHERE history_user = ${resuld};`);
 
-    res.status(200).send(query[0][0])
+    res.status(200).send(query[0])
+    // console.log("howek")
 })
 
 router.post('/login',async (req, res) => {
-    const { username, password, notelp } = req.body;
-    const queryresult = await db.promise().query(`select * from user where user_number='${notelp}' && user_password='${password}' && user_name='${username}' limit 1`);
+    const { password, notelp } = req.body;
+    const queryresult = await db.promise().query(`select * from user where user_number='${notelp}' && user_password='${password}' limit 1`);
     const apaya = queryresult[0][0];
-    // console.log(apaya);
+    console.log(apaya);
     if (apaya == undefined) {
-        res.status(400).send("gagal login")
+        res.status(400).json("gagal login")
     }
     else {
         const isitoken = {
             nama: apaya.user_name,
-            id: apaya.user_id,
             notelp: apaya.user_number
         }
         const token = jwt.sign(isitoken, process.env.sekrekkiy, { expiresIn: '24h' })

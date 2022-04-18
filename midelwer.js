@@ -27,5 +27,5 @@ function authenticateHeader(req, res, next) {
     next();
 }
 
-module.exports ={authenticateToken,authenticateHeader};
+module.exports ={authenticateToken/*,authenticateHeader*/};
 
