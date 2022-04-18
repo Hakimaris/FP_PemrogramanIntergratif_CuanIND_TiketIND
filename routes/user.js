@@ -8,7 +8,7 @@ const router = Router();
 router.get('/history', async (req, res) => {
     const { username, token, id } = req.body;
     let userid;
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
+    jwt.verify(token, process.env.sekrekkiy, (err, response) => {
         // console.log(response);
         if (err) {
             return res.status(408).send("salah token");
@@ -32,8 +32,9 @@ router.post('/login',async (req, res) => {
         const isitoken = {
             nama: apaya.user_name,
             id: apaya.user_id,
+            notelp: apaya.user_number
         }
-        const token = jwt.sign(isitoken, 'buatdebug', { expiresIn: '24h' })
+        const token = jwt.sign(isitoken, process.env.sekrekkiy, { expiresIn: '24h' })
         res.status(200).json(token);
     }
 });

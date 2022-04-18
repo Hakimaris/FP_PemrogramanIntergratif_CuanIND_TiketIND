@@ -9,7 +9,7 @@ const { authenticateToken, authenticateHeader } = require('../midelwer');
 router.post('/', async(req, res) => {
     const { amount, token, target } = req.body;
     let userid;
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
+    jwt.verify(token, process.env.sekrekkiy, (err, response) => {
         if (err) {
             return res.status(408).send("Salah token");
         }

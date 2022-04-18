@@ -7,7 +7,7 @@ router.post('/', async(req, res) => {
     // res.send("sudah topup")
     const { amount, token } = req.body;
     let userid;
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, response) => {
+    jwt.verify(token, process.env.sekrekkiy, (err, response) => {
         console.log(response);
         if (err) {
             return res.status(408).send("salah token");
