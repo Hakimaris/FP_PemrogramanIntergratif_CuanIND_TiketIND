@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
     if (hasilquery.param == 0 ) { 
         // console.log("haha")
         const queryresult1 = await db.promise().query(`INSERT INTO user (user_number, user_email, user_name, user_password, user_money) VALUES (${notelp}, "${email}", "${username}", "${password}", '0');`);
-        res.status(200).json("Karakter telah dibuat");
+        res.status(200).json("Akun telah dibuat, silahkan lakukan Login lalu topup");
     }
     else {
         res.status(400).json("nomor telpon atau email sudah dipakai")

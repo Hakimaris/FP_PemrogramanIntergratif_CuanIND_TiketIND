@@ -4,17 +4,12 @@ const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 const router = Router();
-const { authenticateToken, authenticateHeader } = require('../midelwer');
+const { authenticateToken } = require('../midelwer');
 
-router.post('/', async(req, res) => {
-    const { amount, token, target } = req.body;
-    let userid;
-    jwt.verify(token, process.env.sekrekkiy, (err, response) => {
-        if (err) {
-            return res.status(408).json("Salah token");
-        }
-        userid = response;
-    })
+router.post('/', authenticateToken,async(req, res) => {
+    const { amount, target } = req.body;
+    let resuld = req.response;
+
     //BELUM SELESAI
     const query0 = await db.promise().query(`UPDATE user SET user_money = user_money- ${amount} WHERE user_number = ${userid.id};`);
     const query1 = await db.promise().query(`UPDATE user SET user_money = user_money+ ${amount} WHERE user_number = ${target};`);
