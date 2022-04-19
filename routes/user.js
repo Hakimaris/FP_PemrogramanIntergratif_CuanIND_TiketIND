@@ -9,7 +9,8 @@ const router = Router();
 router.get('/history', authenticateToken,async (req, res) => {
     // const { username, token, id } = req.body;
     let resuld = req.response.notelp;
-    const query = await db.promise().query(`SELECT * from history WHERE history_user = ${resuld};`);
+    //apaya.id mohon diganti
+    const query = await db.promise().query(`SELECT history.history_date as datetime, historycat.historycat_name as transaction, receipt.receipt_item as item, receipt.receipt_qty as sum, receipt.receipt_value as value, receipt.receipt_dec as description from history,receipt,historycat WHERE history.history_user = ${apaya.id} AND history.history_receipt = receipt.receipt_id AND historycat.historycat_id = history.history_receipt;`);
 
     res.status(200).json(query[0])
     // console.log("howek")
@@ -41,7 +42,7 @@ router.post('/register', async (req, res) => {
     // console.log(hasilquery.param);
     if (hasilquery.param == 0 ) { 
         // console.log("haha")
-        const queryresult1 = await db.promise().query(`INSERT INTO user (user_id, user_email, user_name, user_password, user_number, user_money) VALUES (NULL, "${email}", "${username}", "${password}", "${notelp}", '0');`);
+        const queryresult1 = await db.promise().query(`INSERT INTO user (user_number, user_email, user_name, user_password, user_money) VALUES (${notelp}, "${email}", "${username}", "${password}", '0');`);
         res.status(200).json("Karakter telah dibuat");
     }
     else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 18, 2022 at 03:18 PM
+-- Generation Time: Apr 19, 2022 at 03:05 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -35,22 +35,29 @@ CREATE TABLE `history` (
   `history_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO `history` (`history_id`, `history_user`, `history_cat`, `history_receipt`, `history_date`) VALUES
+(1, 123456789, 3, 1, '2022-04-19 09:56:19');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `history-cat`
+-- Table structure for table `historycat`
 --
 
-CREATE TABLE `history-cat` (
-  `history-cat_id` int(11) NOT NULL,
-  `history-cat_name` varchar(100) COLLATE utf8_bin NOT NULL
+CREATE TABLE `historycat` (
+  `historycat_id` int(11) NOT NULL,
+  `historycat_name` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `history-cat`
+-- Dumping data for table `historycat`
 --
 
-INSERT INTO `history-cat` (`history-cat_id`, `history-cat_name`) VALUES
+INSERT INTO `historycat` (`historycat_id`, `historycat_name`) VALUES
 (1, 'Transfer Masuk'),
 (2, 'Transfer Keluar'),
 (3, 'Top Up Saldo'),
@@ -83,19 +90,19 @@ INSERT INTO `item` (`item_id`, `item_cat`, `item_name`, `item_value`, `item_stoc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item-cat`
+-- Table structure for table `itemcat`
 --
 
-CREATE TABLE `item-cat` (
-  `item-cat_id` int(11) NOT NULL,
-  `item-cat_name` varchar(100) COLLATE utf8_bin NOT NULL
+CREATE TABLE `itemcat` (
+  `itemcat_id` int(11) NOT NULL,
+  `itemcat_name` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `item-cat`
+-- Dumping data for table `itemcat`
 --
 
-INSERT INTO `item-cat` (`item-cat_id`, `item-cat_name`) VALUES
+INSERT INTO `itemcat` (`itemcat_id`, `itemcat_name`) VALUES
 (1, 'Tiket Bus Kota (Non Suroboyo Bus)'),
 (2, 'Tiket Suroboyo Bus'),
 (3, 'Tiket Angkutan Kota (Angkot)');
@@ -115,6 +122,13 @@ CREATE TABLE `receipt` (
   `receipt_value` int(11) NOT NULL,
   `receipt_dec` varchar(100) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `receipt`
+--
+
+INSERT INTO `receipt` (`receipt_id`, `receipt_send`, `receipt_receive`, `receipt_item`, `receipt_qty`, `receipt_value`, `receipt_dec`) VALUES
+(1, 123456789, 1, 0, 1, 100000, 'Top Up via Admin');
 
 -- --------------------------------------------------------
 
@@ -150,10 +164,10 @@ ALTER TABLE `history`
   ADD PRIMARY KEY (`history_id`);
 
 --
--- Indexes for table `history-cat`
+-- Indexes for table `historycat`
 --
-ALTER TABLE `history-cat`
-  ADD PRIMARY KEY (`history-cat_id`);
+ALTER TABLE `historycat`
+  ADD PRIMARY KEY (`historycat_id`);
 
 --
 -- Indexes for table `item`
@@ -162,10 +176,10 @@ ALTER TABLE `item`
   ADD PRIMARY KEY (`item_id`);
 
 --
--- Indexes for table `item-cat`
+-- Indexes for table `itemcat`
 --
-ALTER TABLE `item-cat`
-  ADD PRIMARY KEY (`item-cat_id`);
+ALTER TABLE `itemcat`
+  ADD PRIMARY KEY (`itemcat_id`);
 
 --
 -- Indexes for table `receipt`
@@ -187,13 +201,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `history-cat`
+-- AUTO_INCREMENT for table `historycat`
 --
-ALTER TABLE `history-cat`
-  MODIFY `history-cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `historycat`
+  MODIFY `historycat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -202,16 +216,16 @@ ALTER TABLE `item`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `item-cat`
+-- AUTO_INCREMENT for table `itemcat`
 --
-ALTER TABLE `item-cat`
-  MODIFY `item-cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `itemcat`
+  MODIFY `itemcat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
