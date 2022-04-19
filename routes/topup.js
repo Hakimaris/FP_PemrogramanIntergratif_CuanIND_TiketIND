@@ -10,7 +10,7 @@ router.post('/', async(req, res) => {
     jwt.verify(token, process.env.sekrekkiy, (err, response) => {
         console.log(response);
         if (err) {
-            return res.status(408).send("salah token");
+            return res.status(408).json("salah token");
         }
         userid = response;
     })
@@ -20,7 +20,7 @@ router.post('/', async(req, res) => {
     let hasilQuery = query3[0][0];
     const query4 = await db.promise().query(`INSERT INTO history (history_id, history_user, history_cat, history_receipt) VALUES (NULL, ${userid.id}, 3, ${hasilQuery.receipt_id});`);
     // const query5 = await db.promise().query(`INSERT INTO history (history_id, history_user, history_cat, history_receipt) VALUES (NULL, 1, 3, ${hasilQuery.receipt_id});`);
-    res.status(200).send("Top Up berhasil")
+    res.status(200).json("Top Up berhasil")
 });
 
 module.exports = router;

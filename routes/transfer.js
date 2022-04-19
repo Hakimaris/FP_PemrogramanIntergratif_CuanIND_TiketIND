@@ -11,7 +11,7 @@ router.post('/', async(req, res) => {
     let userid;
     jwt.verify(token, process.env.sekrekkiy, (err, response) => {
         if (err) {
-            return res.status(408).send("Salah token");
+            return res.status(408).json("Salah token");
         }
         userid = response;
     })
@@ -24,7 +24,7 @@ router.post('/', async(req, res) => {
     const query4 = await db.promise().query(`SELECT item_id FROM item WHERE item_actor=${hasilQuery1.user_id} AND item_value=${amount} ORDER BY item_id DESC LIMIT 1;`);
     let hasilQuery2 = query4[0][0];
     const query5 = await db.promise().query(`INSERT INTO history (history_id, history_user, history_item, history_quantity) VALUES (NULL, ${userid.id}, ${hasilQuery2.item_id}, 1);`);
-    res.status(200).send("Transfer berhasil")
+    res.status(200).json("Transfer berhasil")
 });
 
 module.exports = router;
