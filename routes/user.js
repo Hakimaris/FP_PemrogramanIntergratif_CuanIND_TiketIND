@@ -8,9 +8,9 @@ const router = Router();
 
 router.get('/history', authenticateToken,async (req, res) => {
     // const { username, token, id } = req.body;
-    let resuld = req.response.notelp;
+    let resuld = req.response;
     //apaya.id mohon diganti
-    const query = await db.promise().query(`SELECT history.history_date as datetime, historycat.historycat_name as transaction, receipt.receipt_item as item, receipt.receipt_qty as sum, receipt.receipt_value as value, receipt.receipt_dec as description from history,receipt,historycat WHERE history.history_user = ${apaya.id} AND history.history_receipt = receipt.receipt_id AND historycat.historycat_id = history.history_receipt;`);
+    const query = await db.promise().query(`SELECT history.history_date as datetime, historycat.historycat_name as transaction, receipt.receipt_item as item, receipt.receipt_qty as sum, receipt.receipt_value as value, receipt.receipt_dec as description from history,receipt,historycat WHERE history.history_user = ${resuld.notelp} AND history.history_receipt = receipt.receipt_id AND historycat.historycat_id = history.history_receipt;`);
 
     res.status(200).json(query[0])
     // console.log("howek")
