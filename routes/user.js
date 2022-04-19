@@ -20,7 +20,7 @@ router.post('/login',async (req, res) => {
     const { password, notelp } = req.body;
     const queryresult = await db.promise().query(`select * from user where user_number='${notelp}' && user_password='${password}' limit 1`);
     const apaya = queryresult[0][0];
-    console.log(apaya);
+    // console.log(apaya);
     if (apaya == undefined) {
         res.status(400).json("gagal login")
     }
