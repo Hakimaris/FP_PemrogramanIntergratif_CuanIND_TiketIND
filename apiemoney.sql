@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 19, 2022 at 03:05 AM
+-- Generation Time: Apr 19, 2022 at 06:37 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -40,7 +40,9 @@ CREATE TABLE `history` (
 --
 
 INSERT INTO `history` (`history_id`, `history_user`, `history_cat`, `history_receipt`, `history_date`) VALUES
-(1, 123456789, 3, 1, '2022-04-19 09:56:19');
+(1, 123456789, 3, 1, '2022-04-19 09:56:19'),
+(2, 123456789, 2, 2, '2022-04-19 12:41:49'),
+(3, 987654321, 1, 2, '2022-04-19 12:41:49');
 
 -- --------------------------------------------------------
 
@@ -115,7 +117,7 @@ INSERT INTO `itemcat` (`itemcat_id`, `itemcat_name`) VALUES
 
 CREATE TABLE `receipt` (
   `receipt_id` int(11) NOT NULL,
-  `receipt_send` int(30) NOT NULL,
+  `receipt_send` int(30) NOT NULL DEFAULT '1',
   `receipt_receive` int(30) NOT NULL DEFAULT '1',
   `receipt_item` int(11) NOT NULL DEFAULT '0',
   `receipt_qty` int(11) NOT NULL DEFAULT '1',
@@ -128,7 +130,8 @@ CREATE TABLE `receipt` (
 --
 
 INSERT INTO `receipt` (`receipt_id`, `receipt_send`, `receipt_receive`, `receipt_item`, `receipt_qty`, `receipt_value`, `receipt_dec`) VALUES
-(1, 123456789, 1, 0, 1, 100000, 'Top Up via Admin');
+(1, 123456789, 1, 0, 1, 100000, 'Top Up via Admin'),
+(2, 123456789, 987654321, 0, 1, 5000, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,8 +153,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_number`, `user_email`, `user_name`, `user_password`, `user_money`) VALUES
 (1, 'admin@mail.com', 'admin', 'admin', 0),
-(123456789, 'user1@mail.com', 'user1', 'user1', 0),
-(987654321, 'user2@mail.com', 'user2', 'user2', 0);
+(123456789, 'user1@mail.com', 'user1', 'user1', 100000),
+(987654321, 'user2@mail.com', 'user2', 'user2', 10000);
 
 --
 -- Indexes for dumped tables
@@ -201,7 +204,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `historycat`
@@ -225,7 +228,7 @@ ALTER TABLE `itemcat`
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
