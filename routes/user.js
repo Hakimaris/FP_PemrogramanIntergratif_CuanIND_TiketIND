@@ -11,7 +11,7 @@ router.get('/history', authenticateToken,async (req, res) => {
     let resuld = req.response.notelp;
     const query = await db.promise().query(`SELECT * from history WHERE history_user = ${resuld};`);
 
-    res.status(200).send(query[0])
+    res.status(200).json(query[0])
     // console.log("howek")
 })
 
@@ -42,10 +42,10 @@ router.post('/register', async (req, res) => {
     if (hasilquery.param == 0 ) { 
         // console.log("haha")
         const queryresult1 = await db.promise().query(`INSERT INTO user (user_id, user_email, user_name, user_password, user_number, user_money) VALUES (NULL, "${email}", "${username}", "${password}", "${notelp}", '0');`);
-        res.status(200).send("Karakter dibuat");
+        res.status(200).json("Karakter telah dibuat");
     }
     else {
-        res.status(400).send("nomor telpon atau email sudah dipakai")
+        res.status(400).json("nomor telpon atau email sudah dipakai")
     }
 })
 
