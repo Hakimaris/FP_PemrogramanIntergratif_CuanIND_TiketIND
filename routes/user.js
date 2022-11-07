@@ -6,13 +6,19 @@ const db = require('../db');
 const { authenticateToken } = require('../midelwer');
 const router = Router();
 
+router.get('/info', authenticateToken,async (req, res) => {
+    let resuld = req.response;
+    const query = await db.promise().query(`SELECT user_number as 'Nomor Telepon', user_name as 'Nama Pengguna', user_money as 'Saldo CuanIND' from user WHERE user_number='${resuld.notelp}'`);
+    res.status(200).json(query[0])
+});
+
 router.get('/history', authenticateToken,async (req, res) => {
     // const { username, token, id } = req.body;
     let resuld = req.response;
-    const query = await db.promise().query(`SELECT history.history_date as datetime, historycat.historycat_name as transaction, receipt.receipt_item as item, receipt.receipt_qty as sum, receipt.receipt_value as value, receipt.receipt_dec as description from history,receipt,historycat WHERE history.history_user = ${resuld.notelp} AND history.history_receipt = receipt.receipt_id AND historycat.historycat_id = history.history_cat;`);
+    const query = await db.promise().query(`SELECT history.history_date as datetime, historycat.historycat_name as transaction, receipt.receipt_item as item, receipt.receipt_qty as sum, receipt.receipt_value as value, receipt.receipt_dec as description from history,receipt,historycat WHERE history.history_user = '${resuld.notelp}' AND history.history_receipt = receipt.receipt_id AND historycat.historycat_id = history.history_cat;`);
     res.status(200).json(query[0])
     // console.log("howek")
-})
+});
 
 router.post('/login',async (req, res) => {
     const { password, notelp } = req.body;
@@ -28,7 +34,7 @@ router.post('/login',async (req, res) => {
             notelp: apaya.user_number
         }
         const token = jwt.sign(isitoken, process.env.sekrekkiy, { expiresIn: '24h' })
-        res.status(200).json(token);
+        res.status(200).send(token);
     }
 });
 
@@ -40,7 +46,7 @@ router.post('/register', async (req, res) => {
     // console.log(hasilquery.param);
     if (hasilquery.param == 0 ) { 
         // console.log("haha")
-        const queryresult1 = await db.promise().query(`INSERT INTO user (user_number, user_email, user_name, user_password, user_money) VALUES (${notelp}, "${email}", "${username}", "${password}", '0');`);
+        const queryresult1 = await db.promise().query(`INSERT INTO user (user_number, user_email, user_name, user_password, user_money) VALUES ("${notelp}", "${email}", "${username}", "${password}", '0');`);
         res.status(200).json("Akun telah dibuat, silahkan lakukan Login lalu topup");
     }
     else {

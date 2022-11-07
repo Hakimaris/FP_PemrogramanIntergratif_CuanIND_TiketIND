@@ -2,8 +2,13 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "heroku": "^7.60.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16",
+    "request": "^2.88.2"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
 }

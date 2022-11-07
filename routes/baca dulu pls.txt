@@ -1,0 +1,8 @@
+todo:
+
+buat pendaftaran akun marketplace (kalo diiyain pak R) done
+buat endpoint untuk penjual menjual barang (dah kubuatin di jual.js) done
+cek dagangan done
+kode unik buat tiket (ntar masuk tabel)
+tambah dagangan (dengan logic lengkap) lagi hakim kerjain
+++ add here
